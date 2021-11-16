@@ -15,22 +15,51 @@ struct ContentView: View {
     @State var blueComponent: Double = 0.5
 
     var body: some View {
-        VStack {
-            HStack {
-                Text("Red")
-                Slider(value: $redComponent)
+        VStack{
+            HStack{
+                VStack(spacing: 16.0) {
+                    Text("Red")
+                        .frame(maxWidth: 60, alignment: .leading)
+                    Text("Green")
+                        .frame(maxWidth: 60, alignment: .leading)
+                    Text("Blue")
+                        .frame(maxWidth: 60, alignment: .leading)
+                }
+                VStack {
+                    Slider(value: $redComponent)
+                    Slider(value: $greenComponent)
+                    Slider(value: $blueComponent)
+                }
             }
-            HStack {
-                Text("Green")
-                Slider(value: $greenComponent)
+            
+            let rectColor = Color(red: redComponent,
+                                  green: greenComponent,
+                                  blue: blueComponent,
+                                  opacity: 1.0)
+            let rect = Rectangle()
+                .border(Color.black, width: 4)
+                .frame(width: 200, height: 200)
+                .foregroundColor(rectColor)
+            
+            if (redComponent == 1.0 &&
+                greenComponent == 1.0 &&
+                blueComponent == 1.0) {
+                rect.overlay(
+                    Text("White")
+                        .foregroundColor(Color.black)
+                )
+            } else if (redComponent == 0.0 &&
+                        greenComponent == 0.0 &&
+                        blueComponent == 0.0) {
+                rect.overlay(
+                    Text("Black")
+                        .foregroundColor(Color.white)
+                )
             }
-            HStack {
-                Text("Blue")
-                Slider(value: $blueComponent)
+            else {
+                rect
             }
-            Color(red: redComponent, green: greenComponent, blue: blueComponent)
-        }
-        .padding(.all, 20.0)
+        }.padding(.all, 20)
     }
 }
 
