@@ -41,24 +41,15 @@ struct ContentView: View {
                 .frame(width: 200, height: 200)
                 .foregroundColor(rectColor)
             
-            if (redComponent == 1.0 &&
-                greenComponent == 1.0 &&
-                blueComponent == 1.0) {
-                rect.overlay(
-                    Text("White")
-                        .foregroundColor(Color.black)
-                )
-            } else if (redComponent == 0.0 &&
-                        greenComponent == 0.0 &&
-                        blueComponent == 0.0) {
-                rect.overlay(
-                    Text("Black")
-                        .foregroundColor(Color.white)
-                )
-            }
-            else {
+            switch (redComponent, greenComponent, blueComponent) {
+            case (1.0, 1.0, 1.0):
+                rect.overlay(Text("White").foregroundColor(Color.black))
+            case (0.0, 0.0, 0.0):
+                rect.overlay(Text("Black").foregroundColor(Color.white))
+            default:
                 rect
             }
+            
         }.padding(.all, 20)
     }
 }
