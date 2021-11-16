@@ -16,12 +16,21 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            Slider(value: $redComponent)
-            Slider(value: $greenComponent)
-            Slider(value: $blueComponent)
+            HStack {
+                Text("Red")
+                Slider(value: $redComponent)
+            }
+            HStack {
+                Text("Green")
+                Slider(value: $greenComponent)
+            }
+            HStack {
+                Text("Blue")
+                Slider(value: $blueComponent)
+            }
             Color(red: redComponent, green: greenComponent, blue: blueComponent)
         }
-        .padding(.all, 10.0)
+        .padding(.all, 20.0)
     }
 }
 
