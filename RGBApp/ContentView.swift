@@ -17,7 +17,7 @@ struct ContentView: View {
     var body: some View {
         VStack{
             HStack{
-                VStack(spacing: 16.0) {
+                VStack(spacing: 19.0) {
                     Text("Red")
                         .frame(maxWidth: 60, alignment: .leading)
                     Text("Green")
@@ -31,7 +31,7 @@ struct ContentView: View {
                     Slider(value: $blueComponent)
                 }
             }
-            
+                        
             let rectColor = Color(red: redComponent,
                                   green: greenComponent,
                                   blue: blueComponent,
@@ -43,11 +43,46 @@ struct ContentView: View {
             
             switch (redComponent, greenComponent, blueComponent) {
             case (1.0, 1.0, 1.0):
-                rect.overlay(Text("White").foregroundColor(Color.black))
+                rect.overlay(Text("White")
+                                .fontWeight(.semibold)
+                                .foregroundColor(Color.black)
+                )
             case (0.0, 0.0, 0.0):
-                rect.overlay(Text("Black").foregroundColor(Color.white))
+                rect.overlay(Text("Black")
+                                .fontWeight(.semibold)
+                                .foregroundColor(Color.white)
+                )
             default:
                 rect
+            }
+            
+            HStack {
+                VStack {
+                    Text("Color(HEX):")
+                        .frame(maxWidth: 100, alignment: .leading)
+                    Text("Color(RGB):")
+                        .frame(maxWidth: 100, alignment: .leading)
+                }
+                VStack {
+                    let rgbHexText = rgbToHex(red: redComponent,
+                                           green: greenComponent,
+                                           blue: blueComponent)
+                    Text("\(rgbHexText)".uppercased())
+                        .frame(maxWidth: 100, alignment: .leading)
+                        .fixedSize()
+                    
+                    let (r, g, b) = numsToRgb(red: redComponent,
+                                              green: greenComponent,
+                                              blue: blueComponent)
+                    HStack {
+                        Text("\(r) ").foregroundColor(.red)
+                            .frame(maxWidth: 35, alignment: .trailing)
+                        Text("\(g) ").foregroundColor(.green)
+                            .frame(maxWidth: 35, alignment: .trailing)
+                        Text("\(b)").foregroundColor(.blue)
+                            .frame(maxWidth: 35, alignment: .trailing)
+                    }
+                }
             }
             
         }.padding(.all, 20)
